@@ -1,0 +1,19 @@
+version: '2.1'
+services:
+  code-server:
+    image: linuxserver/code-server
+    container_name: code-server
+    env_file:
+      - codeserver.env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - PASSWORD=${CODE_SERVER_PASSWORD}
+      - SUDO_PASSWORD=${CODE_SERVER_SUDO_PASSWORD}
+    #  - PROXY_DOMAIN=${CODE_SERVER_PROXY_DOMAIN}
+    volumes:
+      - ${CODE_SERVER_VOLUME_PATH}:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
